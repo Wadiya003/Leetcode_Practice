@@ -20,4 +20,13 @@ public:
         return solve(prices , 0 , true , fee);
    
     }
+    
+    
+    //greedy
+     // int buy = -prices[0], sell = 0;
+     //    for(auto x: prices) {
+     //        buy = max(buy, sell-x);
+     //        sell = max(sell, buy+x-fee);
+     //    }
+     //    return sell;
 };
