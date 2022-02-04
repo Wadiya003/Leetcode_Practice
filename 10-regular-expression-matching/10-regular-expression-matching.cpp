@@ -1,40 +1,47 @@
 class Solution {
 public:
     bool isMatch(string s, string p) {
-   //top-down 
-    vector<vector<int>> dp(s.length()+2,vector<int>(p.length()+2,0));
-  return helper(s,p,0,0,dp);
-   }
+    int n=p.size();
+    int m=s.size();
     
+    vector<vector<bool>>dp(n+1,vector<bool>(m+1));
     
-    bool helper(string &s, string &p, int i ,int j,vector<vector<int>>&dp){
-    int n=s.length();
-    int m=p.length();
+    dp[0][0] = true; //when both are empty
     
-    if(i>=n && j>= m)return true;
-    if(j>=m)return false;
-    if(dp[i][j]){
-    return dp[i][j];}
+    for(int j=1;j<=m;j++){
+        dp[0][j]=false;//if pattern is empty
+    }
     
+    for(int i=1;i<=n;i++){ // iterate pattern 
         
-//      if(j==m){
-//         dp[i][j]=i==s.length();
-//         return (i==s.length());
-//      }
-        
-     //handling char match and .
-      
-          bool match=(i<n && (s[i]==p[j] || p[j]=='.'));
-          //handling * sign
-         if((j+1)<m && p[j+1]=='*'){
-             int opt1=helper(s,p,i,j+2,dp);//do not use star
-             int opt2=match && helper(s,p,i+1,j,dp);//if char matches at j and we use star
-           return dp[i][j]=(opt1||opt2);
-         }
-         if (match){
-           return dp[i][j]= helper(s,p,i+1,j+1,dp);
-         }
-         else
-           return dp[i][j]=false;
- }
+        if(p[i-1]=='*') //if s empty but p is * => matches blank space
+            dp[i][0]=dp[i-2][0];
+        else  //if s empty
+            dp[i][0]=false;
+    }
+    //main iteration
+    for(int i=1;i<=n;i++){
+        for(int j=1;j<=m;j++){
+            //simple if matches 
+            if(p[i-1]=='.' or p[i-1]==s[j-1])
+            { dp[i][j]=dp[i-1][j-1];}
+            
+            //if its a star=> use it or not use it
+            else if(p[i-1]=='*'){
+                
+                // in case previous element is same 
+                if(p[i-2]=='.' or p[i-2]==s[j-1]){
+                    // use it and move on OR use it for more chars
+                    dp[i][j]=dp[i-2][j] or dp[i][j-1];
+                }
+                else{ //if previous doesnt match then use it and stay in that pos 
+                    dp[i][j]=dp[i-2][j];                        
+                }
+            }
+            
+        }
+    }
+    
+    return dp[n][m];
+    }
 };
