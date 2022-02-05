@@ -13,25 +13,28 @@ class Solution {
 public: int ans;
   
     int longestUnivaluePath(TreeNode* root) {
-        helper(root);
+        if(root==NULL)return 0;
+       else helper(root);
         return ans ;
     }
     int helper(TreeNode* root){
-       
-   if (root==NULL)return 0;
-    int left =helper(root->left);
-    int right =helper(root->right);
-    if(root->left && root->left->val==root->val){
-        left++;}
-        else left=0;
-     
-    if(root->right && root->right->val==root->val){
-        right++;}
-    else right=0;
-       ans=max(ans,left+right);
-        return max(left,right) ;
-    
+        int left=0,right=0;
+        if(root->left){
+            if(root->left->val==root->val)
+                left=1+helper(root->left);
+            else
+                ans=max(ans,helper(root->left));
+        }
+        if(root->right){
+            if(root->right->val==root->val)
+                right=1+helper(root->right);
+            else
+                ans=max(ans,helper(root->right));
+        }
+        ans=max({ans,left+right});
+        return max(left,right);
     }
+    
 };
    
         
