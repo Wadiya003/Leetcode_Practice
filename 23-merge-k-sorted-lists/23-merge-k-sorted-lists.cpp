@@ -9,7 +9,7 @@
  * };
  */
 class Solution {
-public:   //merge 2 lists and so on 
+public:   //mergesort O(N * log(K))
     
         ListNode* mergeTwoLists(ListNode* l1, ListNode* l2) {
          ListNode *temp;
