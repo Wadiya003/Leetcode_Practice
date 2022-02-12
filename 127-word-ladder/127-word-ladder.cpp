@@ -1,5 +1,5 @@
 class Solution {
-public:
+public: //bfs graph related
     int ladderLength(string beginWord, string endWord, vector<string>& wordList) {
         unordered_set<string>st;
         bool isthere=false;
