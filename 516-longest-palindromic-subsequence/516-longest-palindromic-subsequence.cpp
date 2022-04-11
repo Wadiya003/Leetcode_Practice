@@ -1,24 +1,25 @@
 class Solution {
 public:
     //recursion
-    int ans=1;
-    int dp[1001][1001];
+
     int longestPalindromeSubseq(string s) {
-        memset(dp,-1,sizeof(dp));
-    int n=s.length();
-        if(n==1){
-            return 1;
+         int n=s.length();
+          vector<vector<int>>dp(n,vector<int>(n,1));
+     
+       
+        int k=0;
+    for(int i = 2;i <= n;i++){
+            for(int j = 0;j < n-i+1;j++){
+                k = i + j - 1;
+                if(s[j] == s[k] && i == 2)
+                    dp[j][k] = 2;
+                else if(s[j] == s[k])
+                    dp[j][k] = 2 + dp[j+1][k-1];
+                else
+                    dp[j][k] = max(dp[j][k-1],dp[j+1][k]);
+            }
         }
-     return recursion(0,n-1,s);
-    }
+       return dp[0][n-1];
     
-int recursion(int start, int end,string &s){
-   if(start==end){
-       return ans;
-   }
-  if(start>end)return 0;
- if(dp[start][end]!=-1)
-            return dp[start][end];
-   return dp[start][end]=(s[start]==s[end])? 2+recursion(start+1,end-1,s):  max(recursion(start+1,end,s),recursion(start,end-1,s)); 
-   }
+    }
 };
