@@ -6,12 +6,11 @@ public: //sliding window technique
         while(l<r){
          int m=l+(r-l)/2;
         if(x-arr[m]>arr[m+k]-x){
-            l=m+1;
+            l=m+1; //discard left part
         }
         else{
-           r=m;
+           r=m; //discard right part
         }
-           
         }
         return vector<int>(begin(arr) +l, begin(arr) + l+k);
     }
