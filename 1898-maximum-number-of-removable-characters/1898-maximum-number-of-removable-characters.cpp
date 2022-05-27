@@ -27,7 +27,7 @@ public:
         while(l<=r){
           int m=l+(r-l)/2;
         if(isstillvalid(s,p,removable,m)){
-        ans=m;
+          ans=m;
           l=m+1;
         }
         else {
