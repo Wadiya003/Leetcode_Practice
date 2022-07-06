@@ -12,7 +12,7 @@
 class Solution {
 public:
     int ans=0;
-    void dfs(TreeNode* root, int sum, long cursum, unordered_map<int,int>&f){
+    void dfs(TreeNode* root, int sum, long cursum, unordered_map<int,int>f){
         if(!root)return;
         cursum+=root->val;
         int findinmap=cursum-sum;
