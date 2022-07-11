@@ -8,8 +8,8 @@ public: //Topological sort
           vector<vector<int>> graph(numCourses);
           vector<int>incoming(numCourses,0);
           for(int i=0;i<n;i++){
-            graph[prerequisites[i][1]].push_back(prerequisites[i][0]); //adcacency list
-            ++incoming[prerequisites[i][0]];
+          graph[prerequisites[i][1]].push_back(prerequisites[i][0]); //adcacency list
+        ++incoming[prerequisites[i][0]];
            }
            //courses that do not depend on any
           for(int i = 0;i < numCourses;i++){
