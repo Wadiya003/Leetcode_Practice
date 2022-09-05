@@ -10,26 +10,31 @@
  * };
  */
 class Solution {
-     
-     void dfs(TreeNode* node, int maxx){
-         if(node==NULL){
-             return ;
-         }
-         if(node->val>=maxx){
-             cnt++;
-             maxx=node->val;
-         }
-         dfs(node->left,maxx);
-         dfs(node->right,maxx);
-         
-     }
 public:
-    //dfs 
-    //store count and keep changing max value
-    int cnt=0;
+    //bfs
     int goodNodes(TreeNode* root) {
-      dfs(root,root->val);
-      return cnt;
+        int ans=0;
+        queue<pair<TreeNode*, int>>q;
+        q.push({root,INT_MIN});
+        while(!q.empty()){
+        pair<TreeNode*,int>p=q.front();
+        q.pop();
+        TreeNode* t=p.first;
+        int maxx=p.second;
+        if(t->val>=maxx){
+            ans++;
+        }
+        if(t->left){
+            q.push({t->left,max(maxx,t->val)});
+        }
+        if(t->right){
+            q.push({t->right,max(maxx,t->val)});
+        }
+        }
+        return ans;
     }
-   
 };
+
+
+
+
