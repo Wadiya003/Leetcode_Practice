@@ -1,5 +1,6 @@
 class Solution {
 public:
+    //greedy || time complexity: nlogn 
     int bagOfTokensScore(vector<int>& tokens, int power) {
       sort(tokens.begin(),tokens.end());
       int score=0,ans=0;
